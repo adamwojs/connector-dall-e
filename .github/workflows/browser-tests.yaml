@@ -13,6 +13,6 @@ jobs:
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
             project-edition: 'oss'
-            test-suite:  '--profile=browser --suite=/home/awojs/ibexa/connector-dall-e --config=vendor/adamwojs//home/awojs/ibexa/connector-dall-e/behat_suites.yaml'
+            test-suite:  '--profile=browser --suite=connector_dall_e --config=vendor/adamwojs/connector-dall-e/behat_suites.yaml'
         secrets:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -3,7 +3,7 @@ imports:
 
 browser:
   suites:
-    /home/awojs/ibexa/connector-dall-e:
+    connector_dall_e:
       paths:
         - '%paths.base%/features/browser'
       contexts:

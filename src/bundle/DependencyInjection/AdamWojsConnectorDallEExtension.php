@@ -59,7 +59,7 @@ final class AdamWojsConnectorDallEExtension extends Extension implements Prepend
     {
         $container->prependExtensionConfig('jms_translation', [
             'configs' => [
-                'adamwojs_/home/awojs/ibexa/connector_dall_e' => [
+                'adamwojs/connector_dall_e' => [
                     'dirs' => [
                         __DIR__ . '/../../',
                     ],
