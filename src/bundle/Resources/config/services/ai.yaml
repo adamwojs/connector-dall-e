@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    AdamWojs\ConnectorDallE\AI\Handler\DallE2GenerateImageActionHandler:
+        tags:
+            -   name: ibexa.ai.action.handler
+                priority: 100
+            -   name: ibexa.ai.action.handler.generate_image
+                priority: 100
+
+    AdamWojs\ConnectorDallE\AI\Handler\DallE3GenerateImageActionHandler:
+        tags:
+            -   name: ibexa.ai.action.handler
+                priority: 100
+            -   name: ibexa.ai.action.handler.generate_image
+                priority: 100

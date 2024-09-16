@@ -1,0 +1,84 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    AdamWojs\ConnectorDallE\DAM\Variation\AssetVariationGenerator:
+        tags:
+            -   name: ibexa.platform.connector.dam.variation_generator
+                source: dalle2
+            -   name: ibexa.platform.connector.dam.variation_generator
+                source: dalle3
+
+    AdamWojs\ConnectorDallE\DAM\Variation\TransformationFactory:
+        tags:
+            -   name: ibexa.platform.connector.dam.transformation_factory
+                source: dalle2
+            -   name: ibexa.platform.connector.dam.transformation_factory
+                source: dalle3
+
+    adamwojs.connector.dalle.dam.query_factory.dalle2:
+        class: AdamWojs\ConnectorDallE\DAM\Query\QueryFactory
+        arguments:
+            $allowedSizes:
+                - !php/const \Ibexa\Contracts\ConnectorAi\Action\TextToImage\Action::SIZE_SQUARE
+            $allowedQualities:
+                - !php/const \Ibexa\Contracts\ConnectorAi\Action\TextToImage\Action::QUALITY_STANDARD
+        tags:
+            -   name: ibexa.connector.dam.query.factory
+                source: dalle2
+
+    adamwojs.connector.dalle.dam.query_factory.dalle3:
+        class: AdamWojs\ConnectorDallE\DAM\Query\QueryFactory
+        arguments:
+            $allowedSizes:
+                - !php/const \Ibexa\Contracts\ConnectorAi\Action\TextToImage\Action::SIZE_SQUARE
+                - !php/const \Ibexa\Contracts\ConnectorAi\Action\TextToImage\Action::SIZE_PORTRAIT
+                - !php/const \Ibexa\Contracts\ConnectorAi\Action\TextToImage\Action::SIZE_LANDSCAPE
+            $allowedQualities:
+                - !php/const \Ibexa\Contracts\ConnectorAi\Action\TextToImage\Action::QUALITY_STANDARD
+                - !php/const \Ibexa\Contracts\ConnectorAi\Action\TextToImage\Action::QUALITY_HD
+        tags:
+            -   name: ibexa.connector.dam.query.factory
+                source: dalle3
+
+    adamwojs.connector.dalle.dam.handler.dalle2:
+        class: AdamWojs\ConnectorDallE\DAM\Handler
+        arguments:
+            $source: 'dalle2'
+            $handler: '@AdamWojs\ConnectorDallE\AI\Handler\DallE2GenerateImageActionHandler'
+        tags:
+            -   name: ibexa.platform.connector.dam.handler
+                source: dalle2
+
+    adamwojs.connector.dalle.dam.handler.dalle3:
+        class: AdamWojs\ConnectorDallE\DAM\Handler
+        arguments:
+            $source: 'dalle3'
+            $handler: '@AdamWojs\ConnectorDallE\AI\Handler\DallE3GenerateImageActionHandler'
+        tags:
+            -   name: ibexa.platform.connector.dam.handler
+                source: dalle3
+
+    AdamWojs\Bundle\ConnectorDallE\DAM\Tab\DallE2SearchTab:
+        arguments:
+            $identifier: 'dalle2'
+            $source: 'dalle2'
+            $name: 'DALL·E 2'
+            $searchFormType: 'AdamWojs\Bundle\ConnectorDallE\Form\Type\DallE2SearchType'
+            $formFactory: '@form.factory'
+        tags:
+            -   name: ibexa.admin_ui.tab
+                group: connector-dam-search
+
+    AdamWojs\Bundle\ConnectorDallE\DAM\Tab\DallE3SearchTab:
+        arguments:
+            $identifier: 'dalle3'
+            $source: 'dalle3'
+            $name: 'DALL·E 3'
+            $searchFormType: 'AdamWojs\Bundle\ConnectorDallE\Form\Type\DallE3SearchType'
+            $formFactory: '@form.factory'
+        tags:
+            -   name: ibexa.admin_ui.tab
+                group: connector-dam-search
